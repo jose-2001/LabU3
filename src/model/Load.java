@@ -1,30 +1,29 @@
 package model;
 
-public class NewLoad {
+public class Load {
 
-//----------
 //Constants
-//----------
 	
 public final static char DANGEROUS = 'D';
 public final static char PERISHABLE = 'P';
 public final static char NONPERISHABLE = 'N';
+public final static double DCARGOPRICE =390000; 
+public final static double PCARGOPRICE =250000;
+public final static double NCARGOPRICE =80000;
 
-//----------
 //Attributes
-//----------
 	
 private int boxAmount;
 private double weightPerBox;
 private char cargoType;
 
+//Relations
+
 private Client owner;
 
-//----------
 //Methods
-//----------
 
-public NewLoad(int pBoxAmount, double pWeightPerBox, char pCargoType) {
+public Load(int pBoxAmount, double pWeightPerBox, char pCargoType) {
 
 	setBoxAmount(pBoxAmount);
 	setWeightPerBox(pWeightPerBox);
@@ -62,20 +61,22 @@ public Client getOwner() {
 public void setOwner(Client powner) {
 	owner = powner;
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+public double getLoadWeightInKg() {
+	double weight= (boxAmount*weightPerBox/1000);
+	return weight;
 }
+public double getLoadPrice() {
+	double price=0;
+	if(cargoType=='D')
+	{price=getLoadWeightInKg()*DCARGOPRICE;}
+	if(cargoType=='P')
+	{price=getLoadWeightInKg()*PCARGOPRICE;}
+	if(cargoType=='N')
+	{price=getLoadWeightInKg()*NCARGOPRICE;}
+	return price;
+}
+
+}
+	
+

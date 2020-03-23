@@ -2,16 +2,14 @@ package model;
 
 public class Client {
 
-//----------
+
 //Constants
-//----------
 	public final static char NORMAL = 'D';
 	public final static char SILVER = 'C';
 	public final static char GOLD = 'B';
 	public final static char PLATINUM = 'A';
-//----------
+
 //Attributes
-//----------
 	private String name;
 	private String nrm;
 	private String regExpedDate;
@@ -20,9 +18,7 @@ public class Client {
 	private double overallPayment;
 	private double currentTripBill;
 	private double currentTripCargoWeight;
-//----------
 //Methods
-//----------
 
 	public Client(String pname, String pnrm, String pregExpedDate, char pclientType, double pkgTransported, double poverallPayment, double pcurrentTripBill, double pcurrentTripCargoWeight) {
 		name = pname;

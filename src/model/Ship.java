@@ -1,16 +1,18 @@
 package model;
 
 public class Ship {
-// -----------
-//Atributes
-//----------
+	
+//Attributes
+	
 	private String name;
 	private double maxCapacity;
 	
+//Relations
 	
-//-----------
+	private Trip currentTrip;
+	
 //methods
-//-----------
+	
 	public Ship(String pName, double pMaxCapacity) {
 		name = pName;
 		maxCapacity = pMaxCapacity;
@@ -24,8 +26,14 @@ public class Ship {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String pName) {
+		name = pName;
+	}
+	public Trip getCurrentTrip() {
+		return currentTrip;
+	}
+	public void setCurrentTrip(Trip pCurrentTrip) {
+		currentTrip = pCurrentTrip;
 	}
 	
 	

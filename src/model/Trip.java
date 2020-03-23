@@ -1,9 +1,9 @@
 package model;
 
 public class Trip {
-//----------
+	
 //Attributes
-//----------
+	
 private double currentShipmentWeight;	
 private int amountShipmentLoads;
 private boolean sendable;
@@ -11,12 +11,12 @@ private boolean dangerousCargoPresence;
 private boolean perishableCargoPresence;	
 private boolean cargoTypeIncompatibility;
 
-private Ship boat;
-private NewLoad latestLoad;
+//Relations
 
-//----------
-//methods
-//----------
+private Ship boat;
+private Load[] currentCargo;
+
+//Methods
 	
 public Trip(double pCurrentShipmentWeight, int pAmountShipmentLoads, boolean pSendable, boolean pDangerousCargoPresence, boolean pPerishableCargoPresence)	
 {
@@ -67,14 +67,21 @@ public boolean getPerishableCargoPresence() {
 public void setPerishableCargoPresence(boolean pPerishableCargoPresence) {
 	perishableCargoPresence = pPerishableCargoPresence;
 }
-public boolean 	checkCargoTypeIncompatibility() {
-	if (perishableCargoPresence== true && dangerousCargoPresence == true)
-		{return true;}
-	else {return false;}
-}
 public boolean getCargoTypeIncompatibility()  {
 	return cargoTypeIncompatibility;
 }
+public Ship getBoat() {
+	return boat;
+}
+
+public void setBoat(Ship pboat) {
+	boat = pboat;
+}
+
+public Load[] getcurrentCargo() {
+	return currentCargo;
+}
+
 public void unloadShip () {
 	currentShipmentWeight = 0;
 	amountShipmentLoads = 0;
@@ -82,6 +89,11 @@ public void unloadShip () {
 	perishableCargoPresence = false;
 	cargoTypeIncompatibility = false;
 	sendable = false;
+}
+public boolean 	checkCargoTypeIncompatibility() {
+	if (perishableCargoPresence== true && dangerousCargoPresence == true)
+		{return true;}
+	else {return false;}
 }
 public boolean checkSendable () {
 	checkCargoTypeIncompatibility();
@@ -94,19 +106,25 @@ public boolean checkSendable () {
 	else {return false;}
 }
 
-public Ship getBoat() {
-	return boat;
+public Load getSpecLoad(int position) {
+	return currentCargo[position];
 }
 
-public void setBoat(Ship pboat) {
-	boat = pboat;
+public void addLoad(Load latestLoad) {
+	currentCargo[nextFreePosition()] = latestLoad;
+}
+public int nextFreePosition() {
+	int position=-1;
+	boolean found= false;
+	for(int i=0; i<currentCargo.length && !found;i++)
+	 {if (currentCargo[i]==null)
+	 	{position= i;
+	 	found=true;}
+	}
+	return position;
+}
+public void eraseLoad(int position) {
+	currentCargo[position]=null;
 }
 
-public NewLoad getLatestLoad() {
-	return latestLoad;
-}
-
-public void setLatestLoad(NewLoad platestLoad) {
-	latestLoad = platestLoad;
-}
 }
