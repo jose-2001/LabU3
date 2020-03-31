@@ -20,15 +20,16 @@ public class Client {
 	private double currentTripCargoWeight;
 //Methods
 
-	public Client(String pname, String pnrm, String pregExpedDate, char pclientType, double pkgTransported, double poverallPayment, double pcurrentTripBill, double pcurrentTripCargoWeight) {
+	public Client(String pname, String pnrm, String pregExpedDate, char pclientType, double pkgTransported, double poverallPayment) {
 		name = pname;
 		nrm = pnrm;
 		regExpedDate = pregExpedDate;
 		clientType = pclientType;
 		kgTransported = pkgTransported;
 		overallPayment = poverallPayment;
-		currentTripBill = pcurrentTripBill;
-		currentTripCargoWeight = pcurrentTripCargoWeight;
+		currentTripBill = 0;
+		currentTripCargoWeight = 0;
+
 	}
 	public String getName() {
 		return name;

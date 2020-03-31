@@ -1,5 +1,5 @@
 package model;
-
+import java.util.ArrayList;
 public class Trip {
 	
 //Attributes
@@ -13,19 +13,19 @@ private boolean cargoTypeIncompatibility;
 
 //Relations
 
-private Ship boat;
-private Load[] currentCargo;
+private ArrayList<Load> currentCargo;
 
 //Methods
 	
-public Trip(double pCurrentShipmentWeight, int pAmountShipmentLoads, boolean pSendable, boolean pDangerousCargoPresence, boolean pPerishableCargoPresence)	
+public Trip(double pCurrentShipmentWeight, int pAmountShipmentLoads,  boolean pDangerousCargoPresence, boolean pPerishableCargoPresence)	
 {
-	setCurrentShipmentWeight(pCurrentShipmentWeight);
-	setAmountShipmentLoads(pAmountShipmentLoads);
-	setSendable(pSendable);
-	setDangerousCargoPresence(pDangerousCargoPresence);
-	setPerishableCargoPresence(pPerishableCargoPresence);
+	currentShipmentWeight=pCurrentShipmentWeight;
+	amountShipmentLoads=pAmountShipmentLoads;
+	sendable=checkSendable();
+	dangerousCargoPresence=pDangerousCargoPresence;
+	perishableCargoPresence=pPerishableCargoPresence;
 	cargoTypeIncompatibility = checkCargoTypeIncompatibility();
+	currentCargo= new ArrayList<Load>();
 }
 
 public double getCurrentShipmentWeight() {
@@ -70,15 +70,8 @@ public void setPerishableCargoPresence(boolean pPerishableCargoPresence) {
 public boolean getCargoTypeIncompatibility()  {
 	return cargoTypeIncompatibility;
 }
-public Ship getBoat() {
-	return boat;
-}
 
-public void setBoat(Ship pboat) {
-	boat = pboat;
-}
-
-public Load[] getcurrentCargo() {
+public ArrayList<Load> getcurrentCargo() {
 	return currentCargo;
 }
 
@@ -95,7 +88,7 @@ public boolean 	checkCargoTypeIncompatibility() {
 		{return true;}
 	else {return false;}
 }
-public boolean checkSendable () {
+public boolean checkSendable() {
 	checkCargoTypeIncompatibility();
 	if(cargoTypeIncompatibility = true)
 		{return false;}
@@ -107,24 +100,25 @@ public boolean checkSendable () {
 }
 
 public Load getSpecLoad(int position) {
-	return currentCargo[position];
+	Load specLoad = currentCargo.get(position);
+	return specLoad;
 }
 
 public void addLoad(Load latestLoad) {
-	currentCargo[nextFreePosition()] = latestLoad;
+	currentCargo.add(latestLoad);
 }
 public int nextFreePosition() {
 	int position=-1;
 	boolean found= false;
-	for(int i=0; i<currentCargo.length && !found;i++)
-	 {if (currentCargo[i]==null)
+	for(int i=0; i<currentCargo.size() && !found;i++)
+	 {if (currentCargo.get(i)==null)
 	 	{position= i;
 	 	found=true;}
 	}
 	return position;
 }
 public void eraseLoad(int position) {
-	currentCargo[position]=null;
+	currentCargo.remove(position);
 }
 
 }
