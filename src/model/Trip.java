@@ -21,9 +21,9 @@ public Trip(double pCurrentShipmentWeight, int pAmountShipmentLoads,  boolean pD
 {
 	currentShipmentWeight=pCurrentShipmentWeight;
 	amountShipmentLoads=pAmountShipmentLoads;
-	sendable=checkSendable();
 	dangerousCargoPresence=pDangerousCargoPresence;
 	perishableCargoPresence=pPerishableCargoPresence;
+	sendable=checkSendable();
 	cargoTypeIncompatibility = checkCargoTypeIncompatibility();
 	currentCargo= new ArrayList<Load>();
 }
@@ -71,7 +71,7 @@ public boolean getCargoTypeIncompatibility()  {
 	return cargoTypeIncompatibility;
 }
 
-public ArrayList<Load> getcurrentCargo() {
+public ArrayList<Load> getCurrentCargo() {
 	return currentCargo;
 }
 
@@ -90,11 +90,9 @@ public boolean 	checkCargoTypeIncompatibility() {
 }
 public boolean checkSendable() {
 	checkCargoTypeIncompatibility();
-	if(cargoTypeIncompatibility = true)
+	if(cargoTypeIncompatibility == true)
 		{return false;}
-	if(currentShipmentWeight>12000)
-		{return true;}
-	if (amountShipmentLoads>=2)
+	if(currentShipmentWeight>12000 ||amountShipmentLoads>=2 )
 		{return true;}
 	else {return false;}
 }

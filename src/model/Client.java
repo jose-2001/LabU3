@@ -80,12 +80,45 @@ public class Client {
 		currentTripCargoWeight = pcurrentTripCargoWeight;
 	}	
 	
+	public double getClientDiscount(Load thisLoad) {
+	double discount=0;
+	if(getClientType()=='D') {
+		discount=0;
+	}
+	if(getClientType()=='C'& thisLoad.getCargoType()=='P') {
+		discount=0.015;
+	}
+	if(getClientType()=='B'& (thisLoad.getCargoType()=='P'|thisLoad.getCargoType()=='N')) {
+		discount=0.03;
+	}
+	if(getClientType()=='A') {
+		discount=0.05;
+	}
+	return discount;
+	}
 	
-	
-	
-	
-	
-	
+public String updateClientType () {
+	String message="";
+	String ms2="";
+	boolean update=false;
+	if(getKgTransported()>35000 && getClientType()!='C') {
+		setClientType('C');	
+		ms2="SILVER";
+		update=true;
+		}
+	if((getKgTransported()>55000 || getOverallPayment()>=2000000) && getClientType()!='B') {
+		setClientType('B');
+		ms2="GOLD";
+		update=true;
+		}
+	if(getOverallPayment()>=5000000 && getClientType()!='A') {
+		setClientType('A');
+		ms2="PLATINUM";
+		update=true;
+		}
+	if(update==true) {message=("The client " + getName() + " has been updated to "+ ms2+".\n");}
+	return message;
+}
 	
 	
 }

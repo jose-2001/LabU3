@@ -1,5 +1,5 @@
 package model;
-
+import java.util.ArrayList;
 public class Ship {
 	
 	
@@ -13,12 +13,14 @@ public class Ship {
 //Relations
 	
 	private Trip currentTrip;
+	private ArrayList<Trip> pastTrips;
 	
 //methods
 	
 	public Ship(String pName) {
 		name = pName;
 		maxCapacity = MAXCAPACITY;
+		pastTrips= new ArrayList<Trip>();
 	}
 	public double getMaxCapacity() {
 		return maxCapacity;
@@ -38,7 +40,11 @@ public class Ship {
 	public void setCurrentTrip(double pCurrentShipmentWeight, int pAmountShipmentLoads, boolean pDangerousCargoPresence, boolean pPerishableCargoPresence) {
 		currentTrip = new Trip(pCurrentShipmentWeight, pAmountShipmentLoads, pDangerousCargoPresence, pPerishableCargoPresence);
 	}
-	
-	
+	public void registerTrip() {
+		pastTrips.add(currentTrip);
+	}
+	public ArrayList<Trip> getPastTrips() {
+		return pastTrips;
+	}
 	
 }

@@ -25,9 +25,9 @@ private Client owner;
 
 public Load(int pBoxAmount, double pWeightPerBox, char pCargoType) {
 
-	setBoxAmount(pBoxAmount);
-	setWeightPerBox(pWeightPerBox);
-	setCargoType(pCargoType);
+	boxAmount=pBoxAmount;
+	weightPerBox=pWeightPerBox;
+	cargoType=pCargoType;
 }
 
 public int getBoxAmount() {
