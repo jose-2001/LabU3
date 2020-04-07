@@ -11,7 +11,10 @@ public class Main {
 	public static Scanner lector;
 	
 //Methods
-	
+	/**
+	 * Name: Main<br>
+	 * This method is the constructor for the class Main, it creates a company (controller class of the model)<br>
+	 */
 public Main() {
 	createCompany();
 }
@@ -30,25 +33,37 @@ public static void main(String[] args) {
 	{
 		System.out.println("Menu");
 		System.out.println("Type 1 to add a new Load");
-		System.out.println("Type 2 to set sail (get shipment status)");
-		System.out.println("Type 3 to unload the ship");
-		System.out.println("Type 4 to get a specific trip's info");
-		System.out.println("Type 5 to terminate the program");
+		System.out.println("Type 2 to get a specific load from the curent trip's information");
+		System.out.println("Type 3 to get a client's information");
+		System.out.println("Type 4 to get the current trip's information");
+		System.out.println("Type 5 to set sail (and get shipment status)");
+		System.out.println("Type 6 to unload the ship");
+		System.out.println("Type 7 to get a specific trip's information");
+		System.out.println("Type 8 to terminate the program");
 		decision=lector.nextInt();
 		switch(decision) {
 		case 1:
 			System.out.println(objMain.addLoad());
 			break;
 		case 2:
-			objMain.setSail();
+			objMain.getLoadInfo();
 			break;
-		case 3: 
-			objMain.unloadShip();
+		case 3:
+			objMain.getClientInfo();
 			break;
 		case 4:
-			objMain.getTrip();
+			System.out.println(objMain.getCurrentTripInfo());
 			break;
 		case 5:
+			objMain.setSail();
+			break;
+		case 6: 
+			objMain.unloadShip();
+			break;
+		case 7:
+			objMain.getTrip();
+			break;
+		case 8:
 			System.out.println("Goodbye!");
 			menu=false;
 			break;
@@ -141,8 +156,8 @@ public void startTrip() {
 	mainCompany.startTrip();
 }
 /**
- * Name: addLoad
- * This method asks for a new load's info, if the load can be added it adds it to the company's ship's trip's cargo
+ * Name: addLoad<br>
+ * This method asks for a new load's info, if the load can be added it adds it to the company's ship's trip's cargo<br>
  * @return it returns a string saying if the load was added successfully and if it was not, why it was not added <br>
  */
 public String addLoad() {
@@ -154,7 +169,7 @@ public String addLoad() {
 	int pOwner = lector.nextInt()-1;
 	System.out.println("How many boxes does this Load have?");
 	int pBoxAmount = lector.nextInt();
-	System.out.println("How much does each box weigh?");
+	System.out.println("How much does each box weigh? (in grams)");
 	double pWeightPerBox = lector.nextDouble();
 	lector.nextLine();
 	System.out.println("What type of cargo is this Load?");
@@ -185,23 +200,38 @@ public void setSail() {
 		}
 }
 /**
- * Name: unloadShip
+ * Name: unloadShip<br>
  * This method registers the trip in the past trips log and unloads the ship<br>
  */
 public void unloadShip() {
 	mainCompany.getOwned().registerTrip();
 	mainCompany.getOwned().getCurrentTrip().unloadShip();
-	System.out.println("The ship has been unloaded! Ready for another trip");
+	System.out.println("The ship has been unloaded and the Trip has been logged. Ready for another trip!");
 	mainCompany.startTrip();
 }
+/**
+ * Name: getTripInfo<br>
+ * This method returns a String with the information from one of the ship's past trips<br>
+ * @param dec an int, not negative, not higher than the index for the last trip logged in the ArrayList pastTrips<br>
+ * @return a String<br>
+ */
 public String getTripInfo(int dec) {
 	String message=mainCompany.getTripInfo(dec);
 	return message;
 }
+/**
+ * Name: getCurrentTripInfo<br>
+ * This method returns a String with the information from the current trip<br>
+ * @return a String<br>
+ */
 public String getCurrentTripInfo() {
 	String message=mainCompany.getCurrentTripInfo();
 	return message;
 }
+/**
+ * Name: getTrip<br>
+ * This method prints out information from the trip the user chooses<br>
+ */
 public void getTrip() {
 	int dec=0;
 	if(mainCompany.getOwned().getPastTrips().size()!=0) {
@@ -214,5 +244,25 @@ public void getTrip() {
 	System.out.println(getCurrentTripInfo());
 	}	
 }
-
+/**
+ * Name: getLoadInfo<br>
+ * This method print out information about the Load the user chooses from the current trip<br>
+ */
+public void getLoadInfo() {
+	System.out.println("There are currently "+ mainCompany.getOwned().getCurrentTrip().getCurrentCargo().size()+ " loads in this trip. \n What Load do you want to know the information from? (Type a number)");
+	int dec=lector.nextInt();
+	System.out.println(mainCompany.getLoadInfo(dec));
+}
+/**
+ * Name: getClientInfo<br>
+ * This method print out information about the client the user chooses<br>
+ */
+public void getClientInfo() {
+	System.out.println("From which client do you want to know the information from?");
+	for (int i=0;i<mainCompany.getClientList().length;i++) {
+		System.out.println("Type "+ (i+1)+ " if it is from " + mainCompany.getClientName(i));
+		}
+	int dec=lector.nextInt();
+	System.out.println(mainCompany.getClientInfo(dec-1));
+}
 }
