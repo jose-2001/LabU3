@@ -112,8 +112,12 @@ public void fillClientList() {
  */
 public int addClient() {
 	System.out.println("Please fill in the client information");
-	System.out.println("Is it an old client? (Y/N)");
-	char old =lector.nextLine().charAt(0);
+	char old;
+	boolean cont =false;
+	do{System.out.println("Is it an old client? (Y/N)");
+	old =lector.nextLine().charAt(0);
+	if (old=='y'|old=='Y'|old=='n'|old=='N') {cont=true;}
+	}while(!cont);
 	System.out.println("Type the name of the client");
 	String pname=lector.nextLine();
 	System.out.println("Type the client's commercial registration number");
@@ -123,12 +127,16 @@ public int addClient() {
 	int message=0;
 	if(old=='Y' | old=='y') 
 	{
+		char pclientType;cont=false;
+		do {
 		System.out.println("Type the client's Client type");
 		System.out.println("Type D if the client's Client Type is Normal");
 		System.out.println("Type C if the client's Client Type is Silver");
 		System.out.println("Type B if the client's Client Type is Gold");
 		System.out.println("Type A if the client's Client Type is Platinum");
-		char pclientType=lector.nextLine().toUpperCase().charAt(0);
+		pclientType=lector.nextLine().toUpperCase().charAt(0);
+		if(pclientType=='D'|pclientType=='C'|pclientType=='B'|pclientType=='A') {cont=true;}}
+		while(!cont);
 		System.out.println("Type the amount of kilograms the client has transported overall");
 		double pkgTransported =lector.nextDouble();
 		System.out.println("Type the client's overall payment");
@@ -249,9 +257,10 @@ public void getTrip() {
  * This method print out information about the Load the user chooses from the current trip<br>
  */
 public void getLoadInfo() {
-	System.out.println("There are currently "+ mainCompany.getOwned().getCurrentTrip().getCurrentCargo().size()+ " loads in this trip. \n What Load do you want to know the information from? (Type a number)");
+	if(mainCompany.getOwned().getCurrentTrip().getCurrentCargo().size()>0) {System.out.println("There are currently "+ mainCompany.getOwned().getCurrentTrip().getCurrentCargo().size()+ " loads in this trip. \n What Load do you want to know the information from? (Type a number)");
 	int dec=lector.nextInt();
-	System.out.println(mainCompany.getLoadInfo(dec));
+	System.out.println(mainCompany.getLoadInfo(dec));}
+	else {System.out.println("There are currently no loads being shipped");}
 }
 /**
  * Name: getClientInfo<br>
