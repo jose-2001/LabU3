@@ -256,4 +256,13 @@ public class Company {
 						"Kilograms transported (this trip): "+ getClientList()[dec].getCurrentTripCargoWeight()+"\n";
 		return message;
 	}
+	public void unloadShip() {
+		getOwned().registerTrip();
+		getOwned().getCurrentTrip().unloadShip();
+		for(int i=0; i<clientList.length;i++) {
+			clientList[i].setCurrentTripCargoWeight(0);
+			clientList[i].setCurrentTripBill(0);
+		}
+		startTrip();
+	}
 }

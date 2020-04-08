@@ -212,10 +212,9 @@ public void setSail() {
  * This method registers the trip in the past trips log and unloads the ship<br>
  */
 public void unloadShip() {
-	mainCompany.getOwned().registerTrip();
-	mainCompany.getOwned().getCurrentTrip().unloadShip();
+	mainCompany.unloadShip();
 	System.out.println("The ship has been unloaded and the Trip has been logged. Ready for another trip!");
-	mainCompany.startTrip();
+
 }
 /**
  * Name: getTripInfo<br>
